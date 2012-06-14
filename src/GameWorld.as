@@ -16,7 +16,7 @@ package
 		
 		override public function begin():void
 		{
-			add(new Game);
+			add(new GameBoard());
 		}
 		
 		override public function update():void 
