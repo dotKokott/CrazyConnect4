@@ -9,6 +9,9 @@ package
 	public class Column extends Entity
 	{
 		public var Id:int;
+		
+		public var coins:Vector.<Coin> = new Vector.<Coin>();
+		
 		public function Column(columnId:int)		
 		{
 			Id = columnId;
