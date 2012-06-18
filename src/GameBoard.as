@@ -91,7 +91,7 @@ package
 						}
 						
 						//vertical						
-						passed = true
+						passed = true;
 						for (var i:int = 1; i < 4; i++)
 						{
 							var nextCoin:Coin = getCoinByCoords(x,y + i);
@@ -108,6 +108,42 @@ package
 							return player;
 						}
 						
+						
+						//diagonal left
+						passed = true;						
+						for (var i:int = 1; i < 4; i++)
+						{
+							var nextCoin:Coin = getCoinByCoords(x - i,y + i);
+							if (nextCoin == null || nextCoin.player != player)
+							{
+								passed = false;
+								break;
+							}
+						}
+						
+						if (passed)
+						{
+							trace("DIAGONAL LEFT");
+							return player;
+						}						
+						
+						//diagonal right
+						passed = true;
+						for (var i:int = 1; i < 4; i++)
+						{
+							var nextCoin:Coin = getCoinByCoords(x + i,y + i);
+							if (nextCoin == null || nextCoin.player != player)
+							{
+								passed = false;
+								break;
+							}
+						}
+						
+						if (passed)
+						{
+							trace("DIAGONAL RIGHT");
+							return player;
+						}												
 					}												
 				}
 				
