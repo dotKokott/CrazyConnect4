@@ -22,7 +22,7 @@ package
 		}
 		
 		override public function update():void 
-		{
+		{			
 			if (Input.mouseReleased && !coinsDropping())
 			{
 				var columnId:int = Math.floor(Input.mouseX / 50);
@@ -58,6 +58,81 @@ package
 			}				
 			
 			return false;
+		}
+		
+		public function checkForWin():int
+		{
+			for (var x:int = 0; x < field.length; x++)
+			{
+				for (var y:int = 0; y < field.length; y++)
+				{
+					var coin:Coin = getCoinByCoords(x, y);					
+					if (coin != null)
+					{
+						var player:int = coin.player;						
+						
+						//horizontal
+						var passed:Boolean = true;
+						for (var i:int = 1; i < 4; i++)
+						{
+							var nextCoin:Coin = getCoinByCoords(x + i, y);
+							if (nextCoin == null || nextCoin.player != player)
+							{
+								passed = false;
+								break;
+							}
+						
+						}
+						
+						if (passed)
+						{
+							trace("HORIZONTAL");
+							return player;
+						}
+						
+						//vertical						
+						passed = true
+						for (var i:int = 1; i < 4; i++)
+						{
+							var nextCoin:Coin = getCoinByCoords(x,y + i);
+							if (nextCoin == null || nextCoin.player != player)
+							{
+								passed = false;
+								break;
+							}
+						}
+						
+						if (passed)
+						{
+							trace("VERTICAL");
+							return player;
+						}
+						
+					}												
+				}
+				
+			}
+			
+			return -1;
+			
+		}
+		
+		//0 = player1; 1 = player2; -1 = null
+		public function getCoinByCoords(x:int, y:int):Coin
+		{
+			if (coordsInBounds(x,y) && field[x][y] != null)
+			{
+				return (field[x][y] as Coin);
+			}
+			else
+			{
+				return null;				
+			}
+		}
+		
+		private function coordsInBounds(x:int, y:int):Boolean
+		{
+			return x >= 0 && x < field.length && y >= 0 && y < field.length;
 		}
 		
 		override public function added():void 

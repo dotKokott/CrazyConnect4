@@ -14,10 +14,13 @@ package
 		public var dropping:Boolean = false;
 		public var dropDestination:Point;
 		
+		public var player:int;
 		
 		public function Coin(board:GameBoard, player:int) 
 		{
 			gameBoard = board;
+			this.player = player;
+			
 			var color:uint = 0xFF0000;
 			if (player == 1)
 			{
@@ -62,6 +65,13 @@ package
 				{
 					gameBoard.field[Math.floor(x / 50)][Math.floor(y / 50)] = this;
 					dropping = false;					
+					
+					var winPlayer:int = gameBoard.checkForWin();
+					
+					if (winPlayer != -1)
+					{
+						trace("PLAYER WON: " + winPlayer.toString());
+					}
 				}
 			}
 		}		
