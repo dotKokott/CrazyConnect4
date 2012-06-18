@@ -51,7 +51,28 @@ package
 			
 			dropping = true;
 			return dropping;
-		}		
+		}
+		
+		public function rearrange():void
+		{
+			var currentY:int = Math.floor(y / 50);
+			var currentX:int = Math.floor(x / 50);
+			if (currentY < 6)
+			{				
+				if (gameBoard.field[currentX][currentY + 1] == null)
+				{
+					gameBoard.field[currentX][currentY] = null;
+					for (var i:int = currentY + 1; i < gameBoard.field.length; i++)
+					{
+						if (gameBoard.field[currentX][i] == null)
+						{
+							dropDestination = new Point(currentX, i * 50);
+						}
+					}					
+					dropping = true;
+				}							
+			}			
+		}
 		
 		override public function update():void 
 		{
@@ -70,7 +91,8 @@ package
 					
 					if (winPlayer != -1)
 					{
-						trace("PLAYER WON: " + winPlayer.toString());
+						(world as GameWorld).message.text = "Player " + winPlayer + " won!";
+						gameBoard.restartGame();
 					}
 				}
 			}
