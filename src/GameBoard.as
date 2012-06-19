@@ -55,9 +55,9 @@ package
 				rotateTimer++;
 			}
 			
-			if (canRotate && Input.check(Key.X) && !coinsDropping())
+			if (canRotate && (Input.check(Key.LEFT) || Input.check(Key.RIGHT)) && !coinsDropping())
 			{
-				rotateBoard();							
+				rotateBoard(Input.check(Key.RIGHT));							
 				
 				canRotate = false;
 				rotateTimer = 0;
@@ -204,7 +204,7 @@ package
 			return -1;			
 		}
 		
-		public function rotateBoard():void
+		public function rotateBoard(right:Boolean):void
 		{
 			var newField:Array = new Array(7);
 			for (var x:int = 0; x < field.length; x++)
@@ -216,14 +216,28 @@ package
 			{
 				for (var j:int = 0; j < 7; ++j)
 				{
-					
-					newField[j][6 - i] = field[i][j];
-					if (field[i][j] != null)
+					if (right)
 					{
-						var coin:Coin = field[i][j] as Coin;
-						coin.x = j * 50;
-						coin.y = (6 - i) * 50;						
+						newField[6 - j][i] = field[i][j];
+						if (field[i][j] != null)
+						{
+							var coin:Coin = field[i][j] as Coin;
+							coin.x = (6 - j) * 50;
+							coin.y = i * 50;						
+						}						
 					}
+					else
+					{
+						newField[j][6 - i] = field[i][j];
+						if (field[i][j] != null)
+						{
+							var coin:Coin = field[i][j] as Coin;
+							coin.x = j * 50;
+							coin.y = (6 - i) * 50;						
+						}						
+
+					}
+
 				}
 			}
 							

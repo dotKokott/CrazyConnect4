@@ -92,7 +92,7 @@ package
 					if (winPlayer != -1)
 					{
 						(world as GameWorld).message.text = "Player " + winPlayer + " won!";
-						gameBoard.restartGame();
+						//gameBoard.restartGame();
 					}
 				}
 			}
